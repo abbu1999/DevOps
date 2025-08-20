@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ocp-canary-route-blue
+  namespace: dc-automations
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ocp-canary-route-blue
+  template:
+    metadata:
+      name: ocp-canary-route-blue
+      labels:
+        app: ocp-canary-route-blue
+    spec:
+      imagePullSecrets:
+        - name: aircop-pull-secret
+      containers:
+      - name: ocp-canary-route-blue
+        image: cellregistry.india.airtel.itm/central-devops-devsecops/ocp-canary-route-blue:v1
+        ports:
+        - containerPort: 8080
+        resources:
+          requests:
+            memory: "256Mi"
+            cpu: "250m"
+          limits:
+            memory: "512Mi"
+            cpu: "500m"

@@ -1,0 +1,11 @@
+{
+  "name": "green-app",
+  "version": "2.0.0",
+  "description": "Simple Node.js app for OCP canary test",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "author": "a1nbmycv",
+  "license": "ISC"
+}
