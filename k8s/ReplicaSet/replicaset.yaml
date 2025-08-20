@@ -5,7 +5,7 @@ metadata:
 spec:
   template:
     metadata:
-      name: my-first-rs-pod
+      #name: my-first-rs-pod
       labels:
         type: frontend
     spec:
