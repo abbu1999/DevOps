@@ -1,0 +1,69 @@
+apiVerison: v1
+kind: Pod
+metadata:
+  name: my-pod
+spec:
+  containers:
+    - name: data-process
+      image: nginx
+  affinity:
+    nodeAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        nodeSelectorTerms:
+        - matchExpressions:
+          - key: size
+            operator: In
+            values:
+            - Large
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: blue
+spec:
+  template:
+    metadata:
+      labels:
+        name: blue
+    spec:
+      containers:
+        - name: blue
+          image: nginx
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+                - key: size
+                  operator: In
+                  values:
+                    - Large
+  replicas: 3
+  selector:
+    matchLabels:
+      name: blue
+---
+piVersion: apps/v1
+kind: Deployment
+metadata:
+  name: red
+spec:
+  template:
+    metadata:
+      labels:
+        name: red
+    spec:
+      containers:
+        - name: red
+          image: nginx
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+                - key: node-role.kubernetes.io/control-plane
+                  operator: Exists
+  replicas: 2
+  selector:
+    matchLabels:
+      name: red
